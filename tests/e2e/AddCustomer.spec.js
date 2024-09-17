@@ -10,12 +10,11 @@ function generateRandomEmail() {
 
   test('Add customer successfully', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    const addCustomer = new AddCustomerPage(page);
+    const addCustomerPage = new AddCustomerPage(page);
     await page.goto('https://demo.guru99.com/v4/');
     await loginPage.login('mngr589400', 'arYtege');
-    await page.locator("//a[@href='addcustomerpage.php']").click();
-
-    await addCustomer.addcus('NgaNTT','1994-02-02','168LTT','Da Nang','Viet Nam','123456789','0973670330',randomEmail,'Abcd1234@');
+    await page.locator('a[href="addcustomerpage.php"]').click();
+    await addCustomerPage.addcus('NgaNTT','1994-02-02','168LTT','Da Nang','Viet Nam','123456789','0973670330',randomEmail,'Abcd1234@');
     await expect( page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
 
   });
