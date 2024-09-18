@@ -1,4 +1,7 @@
+import { faker } from '@faker-js/faker'
+
 export class AddCustomerPage {
+
     constructor(page) {
         this.page = page;
         this.nameInput = page.locator('input[name="name"]');
@@ -13,17 +16,39 @@ export class AddCustomerPage {
         this.passwordInput = page.locator('input[name="password"]');
         this.submitButton = page.locator('input[type="submit"]');
       }
-      async addcus(fullname,birthdate,address,city,state,pin,telephone,email,password) {
-        await this.nameInput.fill(fullname);
-        await this.genderInput.click();
-        await this.birthdateInput.fill(birthdate);
-        await this.addressInput.fill(address);
-        await this.cityInput.fill(city);
-        await this.stateInput.fill(state);
-        await this.pinInput.fill(pin);
-        await this.telephoneInput.fill(telephone);
-        await this.emailInput.fill(email);
-        await this.passwordInput.fill(password);
+
+      async addCustomerWithMale() {
+        await this.nameInput.fill(faker.person.fullName({ firstName: 'Nga' }));
+        const dob = faker.date.birthdate();
+       // await this.birthdateInput.fill(`${dob.getFullYear()}-${dob.getMonth()}-${dob.getDate()}`);
+        await this.birthdateInput.fill('1994-12-14');
+        await this.addressInput.fill(faker.location.streetAddress());
+        await this.cityInput.fill(faker.location.city());
+        await this.stateInput.fill(faker.location.state());
+        await this.pinInput.fill(faker.finance.routingNumber());
+        await this.telephoneInput.fill(faker.finance.routingNumber());
+        await this.emailInput.fill(faker.internet.email());
+        await this.passwordInput.fill(faker.internet.password());
         await this.submitButton.click();
+
+      }
+      async addCustomerWithFemale() {
+        await this.nameInput.fill(faker.person.fullName());
+        await this.genderInput.click();
+        const dob = faker.date.birthdate();
+       // await this.birthdateInput.fill(`${dob.getFullYear()}-${dob.getMonth()}-${dob.getDate()}`);
+        await this.birthdateInput.fill('1994-12-14');
+        await this.addressInput.fill(faker.location.streetAddress());
+        await this.cityInput.fill(faker.location.city());
+        await this.stateInput.fill(faker.location.state());
+        await this.pinInput.fill(faker.finance.routingNumber());
+        await this.telephoneInput.fill(faker.finance.routingNumber());
+        await this.emailInput.fill(faker.internet.email());
+        await this.passwordInput.fill(faker.internet.password());
+        await this.submitButton.click();
+      }
+      async verifyExpectedAddCustomer(){
+        await expect(page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+
       }
 }
