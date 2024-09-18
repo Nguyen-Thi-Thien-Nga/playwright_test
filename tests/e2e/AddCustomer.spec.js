@@ -1,24 +1,31 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
 import { AddCustomerPage } from '../pages/AddCustomerPage';
+import { LogoutPage } from '../pages/LogoutPage';
 
-  test('Add customer with gender Male successfully', async ({ page }) => {
-    const loginPage = new LoginPage(page);
+const genders = ['Male', 'Female'];
+for (const gender of genders) {
+  test(`Add customer with gender ${gender}  successfully`, async ({ page }) => {
     const addCustomerPage = new AddCustomerPage(page);
-    await page.goto('/v4');
-    await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
-    await page.locator('a[href="addcustomerpage.php"]').click();
-    await addCustomerPage.addCustomerWithMale();
-    //await addCustomerPage.verifyExpectedAddCustomer();
-    await expect(page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+    await addCustomerPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
+    if (gender === 'Male') {
+      await addCustomerPage.addCustomerWithGenderMale();
 
-  });
- /* test('Add customer with gender Female successfully', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const addCustomerPage = new AddCustomerPage(page);
-    await page.goto('/v4');
-    await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
-    await page.locator('a[href="addcustomerpage.php"]').click();    await addCustomerPage.addCustomerWithFemale();
-    await expect( page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+    }
+    else {
+      await addCustomerPage.addCustomerWithGenderFemale();
+    }
 
-  });*/
+    await addCustomerPage.verifyExpectedAddCustomer();
+    const logoutPage = new LogoutPage(page);
+    await logoutPage.logout();
+  })
+};
+/* test('Add customer with gender Female successfully', async ({ page }) => {
+   const loginPage = new LoginPage(page);
+   const addCustomerPage = new AddCustomerPage(page);
+   await page.goto('/v4');
+   await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+   await page.locator('a[href="addcustomerpage.php"]').click();    await addCustomerPage.addCustomerWithFemale();
+   await expect( page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+
+ });*/

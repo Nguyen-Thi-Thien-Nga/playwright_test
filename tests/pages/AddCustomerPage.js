@@ -1,54 +1,59 @@
+import { expect } from '@playwright/test';
 import { faker } from '@faker-js/faker'
+import { BasePage } from './BasePage';
+import { format } from 'date-fns';
+export class AddCustomerPage extends BasePage {
 
-export class AddCustomerPage {
+  constructor(page) {
+    super(page);
+    this.nameInput = this.page.locator('input[name="name"]');
+    this.genderInput = this.page.locator('input[value="f"]');
+    this.birthdateInput = this.page.locator('input[name="dob"]');
+    this.addressInput = this.page.locator('textarea[name="addr"]');
+    this.cityInput = this.page.locator('input[name="city"]');
+    this.stateInput = this.page.locator('input[name="state"]');
+    this.pinInput = this.page.locator('input[name="pinno"]');
+    this.telephoneInput = this.page.locator('input[name="telephoneno"]');
+    this.emailInput = this.page.locator('input[name="emailid"]');
+    this.passwordInput = this.page.locator('input[name="password"]');
+    this.submitButton = this.page.locator('input[type="submit"]');
+    this.clickNewCustomer = this.page.locator('a[href="addcustomerpage.php"]');
 
-    constructor(page) {
-        this.page = page;
-        this.nameInput = page.locator('input[name="name"]');
-        this.genderInput = page.locator('input[value="f"]');
-        this.birthdateInput = page.locator('input[name="dob"]');
-        this.addressInput = page.locator('textarea[name="addr"]');
-        this.cityInput = page.locator('input[name="city"]');
-        this.stateInput = page.locator('input[name="state"]');
-        this.pinInput = page.locator('input[name="pinno"]');
-        this.telephoneInput = page.locator('input[name="telephoneno"]');
-        this.emailInput = page.locator('input[name="emailid"]');
-        this.passwordInput = page.locator('input[name="password"]');
-        this.submitButton = page.locator('input[type="submit"]');
-      }
+  }
 
-      async addCustomerWithMale() {
-        await this.nameInput.fill(faker.person.fullName({ firstName: 'Nga' }));
-        const dob = faker.date.birthdate();
-       // await this.birthdateInput.fill(`${dob.getFullYear()}-${dob.getMonth()}-${dob.getDate()}`);
-        await this.birthdateInput.fill('1994-12-14');
-        await this.addressInput.fill(faker.location.streetAddress());
-        await this.cityInput.fill(faker.location.city());
-        await this.stateInput.fill(faker.location.state());
-        await this.pinInput.fill(faker.finance.routingNumber());
-        await this.telephoneInput.fill(faker.finance.routingNumber());
-        await this.emailInput.fill(faker.internet.email());
-        await this.passwordInput.fill(faker.internet.password());
-        await this.submitButton.click();
+  async clickMenuNewCustomer() {
+    await this.clickNewCustomer.click();
+  }
 
-      }
-      async addCustomerWithFemale() {
-        await this.nameInput.fill(faker.person.fullName());
-        await this.genderInput.click();
-        const dob = faker.date.birthdate();
-       // await this.birthdateInput.fill(`${dob.getFullYear()}-${dob.getMonth()}-${dob.getDate()}`);
-        await this.birthdateInput.fill('1994-12-14');
-        await this.addressInput.fill(faker.location.streetAddress());
-        await this.cityInput.fill(faker.location.city());
-        await this.stateInput.fill(faker.location.state());
-        await this.pinInput.fill(faker.finance.routingNumber());
-        await this.telephoneInput.fill(faker.finance.routingNumber());
-        await this.emailInput.fill(faker.internet.email());
-        await this.passwordInput.fill(faker.internet.password());
-        await this.submitButton.click();
-      }
-      async verifyExpectedAddCustomer(){
-        await expect(page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+  async addCustomer() {
+    await this.nameInput.fill(faker.person.fullName({ firstName: 'Nga' }));
+    await this.birthdateInput.fill(format(faker.date.birthdate(), 'yyyy-MM-dd'));
+    await this.addressInput.fill(faker.location.streetAddress().replace(/[^a-zA-Z0-9]/g, ''));
+    await this.cityInput.fill(faker.location.city());
+    await this.stateInput.fill(faker.location.state());
+    await this.pinInput.fill(faker.finance.routingNumber());
+    await this.telephoneInput.fill(faker.phone.imei().replace(/[^0-9]/g, ''));
+    await this.emailInput.fill(faker.internet.email());
+    await this.passwordInput.fill(faker.internet.password());
+    await this.submitButton.click();
 
-      }
+  }
+
+  async addCustomerWithGenderMale() {
+    this.clickMenuNewCustomer();
+    await this.addCustomer();
+
+  }
+
+  async addCustomerWithGenderFemale() {
+    this.clickMenuNewCustomer();
+    await this.genderInput.click();
+    await this.addCustomer();
+
+  }
+
+  async verifyExpectedAddCustomer() {
+    await expect(this.page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+
+  }
 }
