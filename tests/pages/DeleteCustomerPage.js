@@ -12,9 +12,9 @@ export class DeleteCustomerPage extends BasePage {
         this.page.on('dialog', async dialog => {
             console.log(dialog.message());
             if (dialog.message() === 'Do you really want to delete this Customer?') {
-                await dialog.accept(); // Chọn "OK" cho alert đầu tiên
+                await dialog.accept();
             } else if (dialog.message() === 'Customer does not Exist!!!') {
-                await dialog.accept(); // Chọn "OK" cho alert thứ hai
+                await dialog.accept();
             }
         });
         await this.submitButton.click();
