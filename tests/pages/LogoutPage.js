@@ -9,7 +9,7 @@ export class LogoutPage {
         const dialogPromise = this.page.waitForEvent('dialog');
         await this.logoutButton.click();
         const dialog = await dialogPromise;
-        //expect(dialog.message()).toBe('You Have Succesfully Logged Out!!'); 
+        expect(dialog.message()).toBe('You Have Succesfully Logged Out!!');
         await dialog.accept();
     }
 

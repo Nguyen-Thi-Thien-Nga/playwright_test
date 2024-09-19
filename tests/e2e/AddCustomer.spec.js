@@ -20,12 +20,4 @@ for (const gender of genders) {
     await logoutPage.logout();
   })
 };
-/* test('Add customer with gender Female successfully', async ({ page }) => {
-   const loginPage = new LoginPage(page);
-   const addCustomerPage = new AddCustomerPage(page);
-   await page.goto('/v4');
-   await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
-   await page.locator('a[href="addcustomerpage.php"]').click();    await addCustomerPage.addCustomerWithFemale();
-   await expect( page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
 
- });*/

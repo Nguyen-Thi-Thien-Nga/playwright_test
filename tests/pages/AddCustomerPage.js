@@ -26,11 +26,11 @@ export class AddCustomerPage extends BasePage {
   }
 
   async addCustomer() {
-    await this.nameInput.fill(faker.person.fullName({ firstName: 'Nga' }));
+    await this.nameInput.fill(faker.person.fullName().replace(/[^a-zA-Z0-9]/g, ''));
     await this.birthdateInput.fill(format(faker.date.birthdate(), 'yyyy-MM-dd'));
     await this.addressInput.fill(faker.location.streetAddress().replace(/[^a-zA-Z0-9]/g, ''));
-    await this.cityInput.fill(faker.location.city());
-    await this.stateInput.fill(faker.location.state());
+    await this.cityInput.fill(faker.location.city().replace(/[^a-zA-Z0-9]/g, ''));
+    await this.stateInput.fill(faker.location.state().replace(/[^a-zA-Z0-9]/g, ''));
     await this.pinInput.fill(faker.finance.routingNumber());
     await this.telephoneInput.fill(faker.phone.imei().replace(/[^0-9]/g, ''));
     await this.emailInput.fill(faker.internet.email());
