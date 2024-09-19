@@ -1,5 +1,4 @@
 import { test, expected } from '@playwright/test';
-
 import { DeleteCustomerPage } from '../pages/DeleteCustomerPage';
 import { AddCustomerPage } from '../pages/AddCustomerPage';
 import { EditCustomerPage } from '../pages/EditCustomerPage';
