@@ -12,6 +12,7 @@ export class EditCustomerPage extends BasePage {
         this.telephoneInput = this.page.locator('input[name="telephoneno"]');
         this.emailInput = this.page.locator('input[name="emailid"]');
         this.submitButton = this.page.locator('input[type="submit"]');
+
     }
     async editCustomerIdExists(cusid) {
         await this.customerIdInput.fill(cusid);

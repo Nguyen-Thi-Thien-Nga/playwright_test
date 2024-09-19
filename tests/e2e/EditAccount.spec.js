@@ -1,12 +1,12 @@
-import { test } from '@playwright/test';
-import { WithdrawalPage } from '../pages/WithdrawalPage';
-import { AddAccountPage } from '../pages/AddAccountPage';
-import { AddCustomerPage } from '../pages/AddCustomerPage';
+import { EditAccountPage } from "../pages/EditAccountPage";
+import { AddAccountPage } from "../pages/AddAccountPage";
+import { AddCustomerPage } from "../pages/AddCustomerPage";
+import { test, expect } from '@playwright/test';
 
-test('Withdrawal Successfully', async ({ page }) => {
-    const withdrawalPage = new WithdrawalPage(page);
+test('Edit Account Successfully', async ({ page }) => {
     const addAccountPage = new AddAccountPage(page);
     const addCustomerPage = new AddCustomerPage(page);
+    const editAccountPage = new EditAccountPage(page)
     await addAccountPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
     await addCustomerPage.addCustomerWithGenderMale();
     await addCustomerPage.verifyExpectedAddCustomer();
@@ -20,10 +20,7 @@ test('Withdrawal Successfully', async ({ page }) => {
     const currentUrlAccount = page.url();
     const urlAccount = new URL(currentUrlAccount);
     const aid = urlAccount.searchParams.get('aid');
-    await withdrawalPage.navigateWithdrawalForm();
-    await withdrawalPage.verifyWithdrawalForm();
-    await withdrawalPage.withdrawalInput(aid);
-    await withdrawalPage.verifyWithdrawalSuccessfully();
-
-
+    await editAccountPage.navigateEditAccountForm();
+    await editAccountPage.verifyEditAccountForm();
+    await editAccountPage.verifyEditAccountSuccessfully(aid)
 })
