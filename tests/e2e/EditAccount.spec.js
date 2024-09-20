@@ -7,7 +7,7 @@ test('Edit Account Successfully', async ({ page }) => {
     const addAccountPage = new AddAccountPage(page);
     const addCustomerPage = new AddCustomerPage(page);
     const editAccountPage = new EditAccountPage(page)
-    await addAccountPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
+    await editAccountPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
     await addCustomerPage.addCustomerWithGenderMale();
     await addCustomerPage.verifyExpectedAddCustomer();
     const currentUrl = page.url();

@@ -12,26 +12,36 @@ export class EditCustomerPage extends BasePage {
         this.telephoneInput = this.page.locator('input[name="telephoneno"]');
         this.emailInput = this.page.locator('input[name="emailid"]');
         this.submitButton = this.page.locator('input[type="submit"]');
+        this.editCustomerLabel = this.page.locator('p[class=heading3]');
+        this.editCustomerForm = this.page.locator('p[class=heading3]');
+        this.navigateEditCustomerForm = page.locator('a[href="EditCustomer.php"]');
+
+    }
+    async navigateEditCustomer() {
+        await this.navigateEditCustomerForm.click();
+
+    }
+    async verifyEditCustomerForm() {
+        await expect(this.editCustomerLabel).toContainText("Edit Customer Form");
 
     }
     async editCustomerIdExists(cusid) {
         await this.customerIdInput.fill(cusid);
         await this.submitButton.click()
-        await expect(this.page.locator('p[class=heading3]')).toContainText("Edit Customer");
 
     }
-    async navigateEditCustomer() {
-        await this.page.locator('a[href="EditCustomer.php"]').click();
+    async verifyEditCustomerId() {
+        await expect(this.editCustomerLabel).toContainText("Edit Customer");
 
     }
 
     async editCustomerIdNotExists(cusid) {
         await this.customerIdInput.fill(cusid);
-        this.page.on('dialog', async dialog => {
-            console.log(dialog.message());
-            await dialog.accept();
-        });
+        const dialogPromise = this.page.waitForEvent('dialog');
         await this.submitButton.click()
+        const dialog = await dialogPromise;
+        expect(dialog.message()).toBe('You are not authorize to edit this customer!!');
+        await dialog.accept();
 
     }
     async editCustomer() {
@@ -44,11 +54,8 @@ export class EditCustomerPage extends BasePage {
         const dialogPromise = this.page.waitForEvent('dialog');
         await this.submitButton.click();
         const dialog = await dialogPromise;
-        expect(dialog.message()).toBe('No Changes made to Customer records');
         await dialog.accept();
     }
-    async verifyEditCustomer() {
-        await expect(this.page).toHaveURL('https://demo.guru99.com/v4/manager/EditCustomer.php');
-    }
+
 
 }

@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { AddCustomerPage } from '../pages/AddCustomerPage';
-import { LogoutPage } from '../pages/LogoutPage';
 
 const genders = ['Male', 'Female'];
 for (const gender of genders) {
@@ -16,8 +15,7 @@ for (const gender of genders) {
     }
 
     await addCustomerPage.verifyExpectedAddCustomer();
-    const logoutPage = new LogoutPage(page);
-    await logoutPage.logout();
+    await addCustomerPage.logout();
   })
 };
 

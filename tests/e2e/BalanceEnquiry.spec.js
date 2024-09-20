@@ -7,7 +7,7 @@ test('Balance Enquiry Successfully', async ({ page }) => {
     const balanceEnquiryPage = new BalanceEnquiryPage(page);
     const addAccountPage = new AddAccountPage(page);
     const addCustomerPage = new AddCustomerPage(page);
-    await addAccountPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
+    await balanceEnquiryPage.loginStep(process.env.USERNAME, process.env.PASSWORD);
     await addCustomerPage.addCustomerWithGenderMale();
     await addCustomerPage.verifyExpectedAddCustomer();
     const currentUrl = page.url();

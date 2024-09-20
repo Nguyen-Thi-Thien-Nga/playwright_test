@@ -18,6 +18,7 @@ export class AddCustomerPage extends BasePage {
     this.passwordInput = this.page.locator('input[name="password"]');
     this.submitButton = this.page.locator('input[type="submit"]');
     this.clickNewCustomer = this.page.locator('a[href="addcustomerpage.php"]');
+    this.expectedAddCustomer = page.locator('p.heading3[align="center"]');
 
   }
 
@@ -40,20 +41,20 @@ export class AddCustomerPage extends BasePage {
   }
 
   async addCustomerWithGenderMale() {
-    this.clickMenuNewCustomer();
+    await this.clickMenuNewCustomer();
     await this.addCustomer();
 
   }
 
   async addCustomerWithGenderFemale() {
-    this.clickMenuNewCustomer();
+    await this.clickMenuNewCustomer();
     await this.genderInput.click();
     await this.addCustomer();
 
   }
 
   async verifyExpectedAddCustomer() {
-    await expect(this.page.locator('p.heading3[align="center"]')).toContainText("Customer Registered Successfully!!!");
+    await expect(this.expectedAddCustomer).toContainText("Customer Registered Successfully!!!");
 
   }
 }

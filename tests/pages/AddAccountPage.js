@@ -21,7 +21,6 @@ export class AddAccountPage extends BasePage {
         await this.savingSelect;
         await this.inidepositInput.fill('900');
         await this.submitButton.click();
-
     }
     async addAccountTypeCurrent(cusId) {
         await this.customerIdInput.fill(cusId);

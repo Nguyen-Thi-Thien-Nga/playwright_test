@@ -10,6 +10,7 @@ export class ChangePasswordPage extends BasePage {
         this.changePasswordMenu = page.locator('a[href="PasswordInput.php"]');
         this.addAccountSuccessfullyMsg = page.locator('p.heading3[align="center"]');
         this.changePasswordForm = page.locator('p.heading3');
+        this.expectChangePassword = page.locator('h2[class=barone]');
 
     }
     async navigateChangePassword() {
@@ -25,10 +26,12 @@ export class ChangePasswordPage extends BasePage {
         expect(dialog.message()).toBe('Password is Changed');
         await dialog.accept();
     }
-
+    async verifyChangePasswordForm() {
+        await expect(this.changePasswordForm).toContainText('Change Password');
+    }
 
     async verifyChangePassword() {
-        await expect(this.page).toHaveURL('https://demo.guru99.com/v4/index.php');
+        await expect(this.expectChangePassword).toContainText('Guru99 Bank');
 
     }
 

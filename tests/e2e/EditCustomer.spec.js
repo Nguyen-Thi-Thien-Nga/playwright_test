@@ -15,6 +15,8 @@ test('Edit customer successfully', async ({ page }) => {
     await editCustomerPage.navigateEditCustomer();
     await editCustomerPage.editCustomerIdExists(cid);
     await editCustomerPage.editCustomer();
-    await editCustomerPage.verifyEditCustomer();
+    await editCustomerPage.verifyEditCustomerForm();
+    await editCustomerPage.editCustomerIdNotExists('000000');
+
 })
 
