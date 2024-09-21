@@ -1,4 +1,4 @@
-import { test,expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { AddCustomerPage } from "../pages/AddCustomerPage";
 
 const genders = ["Male", "Female"];
