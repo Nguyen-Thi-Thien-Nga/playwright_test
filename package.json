@@ -7,7 +7,8 @@
   },
   "scripts": {
     "test": "playwright test",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.36.1",
     "globals": "^15.9.0",
-    "husky": "^9.1.6",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "pretty-quick": "^4.0.0"
@@ -31,15 +32,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "pretty-quick --staged",
-      "eslint --fix",
-      "git add"
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "eslint --fix"
     ]
   }
 }
