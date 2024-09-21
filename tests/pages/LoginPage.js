@@ -1,7 +1,6 @@
-import { BasePage} from './BasePage';
-export class  LoginPage extends BasePage{
-    constructor(page) {
-      super(page); 
-    }
+import { BasePage } from "./BasePage";
+export class LoginPage extends BasePage {
+  constructor(page) {
+    super(page);
   }
-  
+}
