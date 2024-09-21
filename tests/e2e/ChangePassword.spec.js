@@ -7,7 +7,7 @@ test("Change Password successfully", async ({ page }) => {
     process.env.SECOND_USERNAME,
     process.env.SECOND_PASSWORD,
   );
-     const password = "EpaqUde@1";
+  const password = "EpaqUde@1";
   await changePasswordPage.navigateChangePassword();
   await changePasswordPage.verifyChangePasswordForm();
   await changePasswordPage.changePassword(
@@ -15,7 +15,6 @@ test("Change Password successfully", async ({ page }) => {
     password,
   );
 
-  
   await changePasswordPage.verifyChangePassword();
   await changePasswordPage.loginStep(process.env.SECOND_USERNAME, password);
   await changePasswordPage.navigateChangePassword();
