@@ -14,4 +14,7 @@ export default [
     },
   },
   pluginJs.configs.recommended,
+  {
+    ignores: [".gitignore/"]
+}
 ];
