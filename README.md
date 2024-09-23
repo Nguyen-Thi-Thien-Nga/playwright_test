@@ -11,6 +11,8 @@ Guru99 Demo is an automated testing project using Playwright to test the main fu
 
 ## Install
 
+npm init playwright@latest
+
 ## Requirements
 
 - Node.js (version 12 or higher)

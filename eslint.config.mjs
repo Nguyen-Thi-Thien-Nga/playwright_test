@@ -14,4 +14,5 @@ export default [
     },
   },
   pluginJs.configs.recommended,
+  
 ];
