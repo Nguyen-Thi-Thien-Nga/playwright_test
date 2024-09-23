@@ -21,9 +21,4 @@ npm init playwright@latest
 
 ### Use
 
-```bashæ“æ“…πdzx gcv  cvvcv   v
-
-
-\]\
 npx test
-```
